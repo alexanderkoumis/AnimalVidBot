@@ -12,7 +12,7 @@ OLD_DIR=$PWD
 cd $AVB_DIR
 git reset --hard HEAD
 git pull
-pkill -9 -f app.py
+pkill -9 -f AnimalVidBot/app.py
 python3 -u $AVB_DIR/app.py $AVB_DIR/config.json | tee -a $AVB_DIR/stdout.log &
 disown
 cd $OLD_DIR
