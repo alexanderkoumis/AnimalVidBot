@@ -14,7 +14,7 @@ class AnimalVidListener(StreamListener):
         try:
             if hasattr(status, 'retweeted_status'):
                 return
-            if self._adult_post(status):
+            if self._filter_status(status):
                 return
             video_link = self._status_video_link(status)
             if video_link is not None:
@@ -31,9 +31,19 @@ class AnimalVidListener(StreamListener):
             # returning False in on_data disconnects the stream
             return False
 
+    def _filter_status(self, status):
+        if self._adult_post(status) or self._food_post(status):
+            return
+
     def _adult_post(self, status):
         for word in ['sex', 'sexy', 'porn', 'fuck', 'nude', 'playboy',
                      'screwed', 'hot', 'naked', 'anal']:
+            if word in status.text:
+                return True
+        return False
+
+    def _food_post(self, status):
+        for word in ['cook', 'nuggets', 'cook']:
             if word in status.text:
                 return True
         return False
