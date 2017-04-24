@@ -21,7 +21,8 @@ class AnimalVidListener(StreamListener):
                 self.api.retweet(status.id)
         except Exception as exc:
             # Trying to figure out what kind of exception this throws
-            print('Exception[{}] in on_status: {}, text: {}'.format(type(exc), str(exc), status.text))
+            print('Exception[{}] in on_status: {}, text: {}'.format(
+                type(exc), str(exc), status.text))
             traceback.print_stack()
 
     def on_error(self, status_code):
@@ -31,7 +32,8 @@ class AnimalVidListener(StreamListener):
             return False
 
     def _adult_post(self, status):
-        for word in ['sex', 'sexy', 'porn', 'fuck', 'nude', 'playboy', 'screwed', 'hot']:
+        for word in ['sex', 'sexy', 'porn', 'fuck', 'nude', 'playboy',
+                     'screwed', 'hot', 'naked', 'anal']:
             if word in status.text:
                 return True
         return False
