@@ -43,7 +43,7 @@ class AnimalVidListener(StreamListener):
         return False
 
     def _food_post(self, status):
-        for word in ['cook', 'nuggets', 'cook']:
+        for word in ['cook', 'nuggets', 'eat', 'ribs', 'grill']:
             if word in status.text:
                 return True
         return False
