@@ -33,7 +33,8 @@ class AnimalVidListener(StreamListener):
 
     def _filter_status(self, status):
         if self._adult_post(status) or self._food_post(status):
-            return
+            return True
+        return False
 
     def _adult_post(self, status):
         for word in ['sex', 'sexy', 'porn', 'fuck', 'nude', 'playboy',
