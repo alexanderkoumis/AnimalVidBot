@@ -58,7 +58,7 @@ class AnimalVidListener(StreamListener):
         return False
 
     def _animal_phrase(self, status):
-        for word in ['early bird', 'jessica rabbit']:
+        for word in ['early bird', 'jessica rabbit', 'copy cat']:
             if word in status.text.lower():
                 return True
         return False
