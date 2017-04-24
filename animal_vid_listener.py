@@ -39,6 +39,7 @@ class AnimalVidListener(StreamListener):
         if (self._too_fast() or
                 self._adult_post(status) or
                 self._food_post(status) or
+                self._animal_phrase(status) or
                 hasattr(status, 'retweeted_status')):
             return True
         return False
@@ -51,7 +52,13 @@ class AnimalVidListener(StreamListener):
         return False
 
     def _food_post(self, status):
-        for word in ['cook', 'nuggets', 'eat', 'ribs', 'grill', 'dinner']:
+        for word in ['cook', 'nuggets', 'eat', 'ribs', 'grill', 'dinner', 'broth', 'sauce']:
+            if word in status.text.lower():
+                return True
+        return False
+
+    def _animal_phrase(self, status):
+        for word in ['early bird']:
             if word in status.text.lower():
                 return True
         return False

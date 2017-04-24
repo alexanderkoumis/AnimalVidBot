@@ -29,9 +29,9 @@ def run(config):
     listener = AnimalVidListener(api)
 
     stream = tweepy.Stream(auth, listener)
-    stream.filter(track=['animal,dog,cat,lion,cheetah,zoo,bird,leopard,boar,deer,giraffe,chicken,'
-                         'dachshund,buffalo,donkey,horse,monkey,bear,pug,pig,rabbit,sheep,llama,'
-                         'elephant,hyena,alligator,turtle'])
+    stream.filter(track=['dog,cat,lion,cheetah,zoo,bird,leopard,boar,deer,giraffe,dachshund,'
+                         'buffalo,donkey,horse,monkey,bear,pug,pig,rabbit,sheep,llama,elephant,'
+                         'hyena,alligator,turtle'])
 
 def main():
     """Main app outer loop"""
