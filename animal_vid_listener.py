@@ -64,10 +64,11 @@ class AnimalVidListener(StreamListener):
         return False
 
     def _too_fast(self):
-        time_elapsed = datetime.datetime.now() - self.last_tweet_time
-        if time_elapsed.seconds < TWEET_TIMEOUT_SECONDS:
-            return True
-        return False
+        return False        
+        # time_elapsed = datetime.datetime.now() - self.last_tweet_time
+        # if time_elapsed.seconds < TWEET_TIMEOUT_SECONDS:
+        #     return True
+        # return False
 
     def _status_video_link(self, status):
         if 'media' in status.entities:
