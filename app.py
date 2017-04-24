@@ -30,8 +30,8 @@ def run(config):
 
     stream = tweepy.Stream(auth, listener)
     stream.filter(track=['dog,cat,lion,cheetah,zoo,bird,leopard,boar,deer,giraffe,dachshund,'
-                         'buffalo,donkey,horse,monkey,bear,pug,pig,rabbit,sheep,llama,elephant,'
-                         'hyena,alligator,turtle'])
+                         'buffalo,donkey,horse,monkey,bear,pug,pig,rabbit,sheep,elephant,hyena,'
+                         'alligator,turtle'])
 
 def main():
     """Main app outer loop"""
