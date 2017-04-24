@@ -35,8 +35,9 @@ class AnimalVidListener(StreamListener):
     def _filter_status(self, status):
         if hasattr(status, 'retweeted_status'):
             return True
+        # There is a suprising amount of porn tweets out there, skip them
         adult_words = ['sex', 'sexy', 'porn', 'fuck', 'nude', 'playboy',
-                       'screwed', 'hot', 'naked', 'anal']
+                       'screw', 'hot', 'naked', 'anal', 'cum', 'cock']
         food_words = ['cook', 'nuggets', 'eat', 'ribs', 'grill', 'dinner',
                       'broth', 'sauce']
         animal_phrases = ['early bird', 'jessica rabbit', 'copy cat']
