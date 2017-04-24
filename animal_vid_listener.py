@@ -1,4 +1,3 @@
-import datetime
 import traceback
 
 from tweepy.streaming import StreamListener
@@ -13,7 +12,6 @@ class AnimalVidListener(StreamListener):
     def __init__(self, api, *args, **kwargs):
         super(StreamListener, self).__init__(*args, **kwargs)
         self.api = api
-        self.last_tweet_time = datetime.datetime.now()
 
     def on_status(self, status):
         try:
@@ -22,7 +20,6 @@ class AnimalVidListener(StreamListener):
             video_link = self._status_video_link(status)
             if video_link is not None:
                 self.api.retweet(status.id)
-                self.last_tweet_time = datetime.datetime.now()
         except Exception as exc:
             # Trying to figure out what kind of exception this throws
             print('Exception[{}] in on_status: {}, text: {}'.format(
@@ -36,39 +33,17 @@ class AnimalVidListener(StreamListener):
             return False
 
     def _filter_status(self, status):
-        if (self._too_fast() or
-                self._adult_post(status) or
-                self._food_post(status) or
-                self._animal_phrase(status) or
-                hasattr(status, 'retweeted_status')):
+        if hasattr(status, 'retweeted_status'):
             return True
-        return False
-
-    def _adult_post(self, status):
-        for word in ['sex', 'sexy', 'porn', 'fuck', 'nude', 'playboy',
-                     'screwed', 'hot', 'naked', 'anal']:
+        adult_words = ['sex', 'sexy', 'porn', 'fuck', 'nude', 'playboy',
+                       'screwed', 'hot', 'naked', 'anal']
+        food_words = ['cook', 'nuggets', 'eat', 'ribs', 'grill', 'dinner',
+                      'broth', 'sauce']
+        animal_phrases = ['early bird', 'jessica rabbit', 'copy cat']
+        for word in adult_words + food_words + animal_phrases:
             if word in status.text.lower():
                 return True
         return False
-
-    def _food_post(self, status):
-        for word in ['cook', 'nuggets', 'eat', 'ribs', 'grill', 'dinner', 'broth', 'sauce']:
-            if word in status.text.lower():
-                return True
-        return False
-
-    def _animal_phrase(self, status):
-        for word in ['early bird', 'jessica rabbit', 'copy cat']:
-            if word in status.text.lower():
-                return True
-        return False
-
-    def _too_fast(self):
-        return False        
-        # time_elapsed = datetime.datetime.now() - self.last_tweet_time
-        # if time_elapsed.seconds < TWEET_TIMEOUT_SECONDS:
-        #     return True
-        # return False
 
     def _status_video_link(self, status):
         if 'media' in status.entities:
