@@ -1,3 +1,4 @@
+import datetime
 import traceback
 
 from tweepy.streaming import StreamListener
@@ -12,6 +13,7 @@ class AnimalVidListener(StreamListener):
     def __init__(self, api, *args, **kwargs):
         super(StreamListener, self).__init__(*args, **kwargs)
         self.api = api
+        self.last_tweet_time = datetime.datetime.now()
 
     def on_status(self, status):
         try:
@@ -20,6 +22,7 @@ class AnimalVidListener(StreamListener):
             video_link = self._status_video_link(status)
             if video_link is not None:
                 self.api.retweet(status.id)
+                self.last_tweet_time = datetime.datetime.now()
         except Exception as exc:
             # Trying to figure out what kind of exception this throws
             print('Exception[{}] in on_status: {}, text: {}'.format(
@@ -33,6 +36,8 @@ class AnimalVidListener(StreamListener):
             return False
 
     def _filter_status(self, status):
+        if datetime.datetime.now() - self.last_tweet_time < TWEET_TIMEOUT_SECONDS:
+            return True
         if hasattr(status, 'retweeted_status'):
             return True
         # There is a suprising amount of porn tweets out there, skip them
