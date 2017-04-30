@@ -42,10 +42,11 @@ class AnimalVidListener(StreamListener):
             return True
         # There is a suprising amount of porn tweets out there, skip them
         adult_words = ['sex', 'sexy', 'porn', 'fuck', 'nude', 'playboy',
-                       'screw', 'hot', 'naked', 'anal', 'cum', 'cock']
+                       'screw', 'hot', 'naked', 'anal', 'cum', 'cock', 'dick',
+                       'grinding']
         food_words = ['cook', 'nuggets', 'eat', 'ribs', 'grill', 'dinner',
                       'broth', 'sauce']
-        animal_phrases = ['early bird', 'jessica rabbit', 'copy cat']
+        animal_phrases = ['early bird', 'jessica rabbit', 'copy cat', 'larry bird']
         for word in adult_words + food_words + animal_phrases:
             if word in status.text.lower():
                 return True
