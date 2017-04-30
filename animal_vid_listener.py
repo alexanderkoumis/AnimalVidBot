@@ -36,7 +36,7 @@ class AnimalVidListener(StreamListener):
             return False
 
     def _filter_status(self, status):
-        if (datetime.datetime.now() - self.last_tweet_time) < TWEET_TIMEOUT_SECONDS:
+        if (datetime.datetime.now() - self.last_tweet_time).seconds < TWEET_TIMEOUT_SECONDS:
             return True
         if hasattr(status, 'retweeted_status'):
             return True
